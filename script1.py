@@ -3,7 +3,7 @@ from pg_sample_texts import DIV_COMM, MAG_CART
  
 documents = [DIV_COMM, MAG_CART]
  
- #?P<title> creates a named capturing group
+ #?P<title> creates a named capturing group -- What are named groups?
 
  # Why the [] expression?
  # Why is (.*) in parenthesis? When do we use parenthesis and brackets?
@@ -14,19 +14,20 @@ translator_search = re.compile(r'(translator:)(?P<translator>.*)', re.IGNORECASE
 illustrator_search = re.compile(r'(illustrator:)(?P<illustrator>.*)', re.IGNORECASE)
  
 
-for i, doc in enumerate(documents):
-  title = re.search(title_search, doc).group('title')
-  author = re.search(author_search, doc)
-  translator = re.search(translator_search, doc)
-  illustrator = re.search(illustrator_search, doc)
+for document_number, document in enumerate(documents):
+  title = re.search(title_search, document).group('title')
+  author = re.search(author_search, document)
+  translator = re.search(translator_search, document)
+  illustrator = re.search(illustrator_search, document)
   if author: 
     author = author.group('author')
   if translator:
     translator = translator.group('translator')
   if illustrator:
     illustrator = illustrator.group('illustrator')
+
   print "***" * 25
-  print "Here's the info for doc {}:".format(i)
+  print "Here's the info for doc {}:".format(document_number)
   print "Title:  {}".format(title)
   print "Author(s): {}".format(author)
   print "Translator(s): {}".format(translator)
