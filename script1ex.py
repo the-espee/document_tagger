@@ -2,7 +2,7 @@ import re
 from pg_sample_texts import DIV_COMM, MAG_CART
  
 documents = [DIV_COMM, MAG_CART]
- 
+
  #?P<title> creates a named capturing group -- What are named groups?
 
  # Why the [] expression?
@@ -10,11 +10,20 @@ documents = [DIV_COMM, MAG_CART]
  # Why does my code work without the parenthesis in the named group?
 
 title_search = re.compile(r'(title:\s*)(?P<title>(.*)[]*?\n[]*(.*))', re.IGNORECASE)
+# title: The Cat in the Hat
+# first it matches 'title: '
+# then it maches, after it, "The Cat in the Hat" and temporarily names this 'title'
 author_search = re.compile(r'(author:)(?P<author>.*)', re.IGNORECASE)
 translator_search = re.compile(r'(translator:)(?P<translator>.*)', re.IGNORECASE)
 illustrator_search = re.compile(r'(illustrator:)(?P<illustrator>.*)', re.IGNORECASE)
- 
 
+# if you have doc = ["cat", "dog", "train"], then enumerate(doc) gets you:
+# [[1, "cat"], [2, "dog"], [3, "train"]]
+# [1, "cat"]
+# [a, b]
+# for blah, whoo in [a,b]
+# blah = a
+# whoo = b
 for document_number, document in enumerate(documents):
   title = re.search(title_search, document).group('title')
   author = re.search(author_search, document)
